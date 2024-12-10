@@ -60,18 +60,14 @@ return new class extends Migration
             $table->string('dni', 8)->nullable()->comment('Documento Nacional de Identidad (DNI) del usuario');
             $table->string('usuario', 100)->nullable()->comment('Nombre de usuario para acceso al sistema');
             $table->text('clave')->nullable()->comment('Contraseña del usuario encriptada');
-            $table->foreignId('id_perfil_usuario')
-                ->constrained('perfiles', 'id_perfil')
-                ->comment('Foreign Key - Perfil asignado al usuario');
-            $table->foreignId('id_Area_usuario')
-                ->nullable()
-                ->constrained('area', 'id_area')
-                ->comment('Foreign Key - Área asignada al usuario');
-            $table->foreignId('id_almacen_usuario') // Nueva columna
-                ->nullable()
-                ->constrained('almacen', 'id') // Relación con la tabla almacen
-                ->comment('Foreign Key - Almacén asignado al usuario');
+            $table->unsignedBigInteger('id_perfil_usuario')->comment('Foreign Key - Perfil asignado al usuario');
+            $table->unsignedBigInteger('id_Area_usuario')->nullable()->comment('Foreign Key - Área asignada al usuario');
+            $table->unsignedInteger('id_almacen_usuario')->nullable()->comment('Foreign Key - Almacén asignado al usuario');
             $table->tinyInteger('estado')->default(1)->comment('Estado del usuario: 1=Activo, 0=Inactivo');
+
+            $table->foreign('id_perfil_usuario')->references('id_perfil')->on('perfiles');
+            $table->foreign('id_Area_usuario')->references('id_area')->on('area');
+            $table->foreign('id_almacen_usuario')->references('id')->on('almacen');
         });
     }
 
