@@ -159,30 +159,48 @@
                     </div>
 
                 </div>
-                <div class="col-12 col-lg-6">
 
-                    <div class="card card-gray shadow mt-4">
+                <div class="col-lg-6 col-md-12">
 
-                        <div class="card-body px-3 py-3" style="position: relative;">
+                    <div class="card card-gray shadow w-lg-100 float-right mt-4">
 
-                            <span class="titulo-fieldset px-3 py-1">VARIACION DE PRECIOS X PRODUCTOS</span>
+                        <div class="card-body px-3 py-3 fw-bold" style="position: relative;">
+
+                            <span class="titulo-fieldset px-3 py-1" id="title-variacion-precio-producto"> VARIACION PRECIOS X PRODUCTOS</span>
 
                             <div class="row my-1">
-                                <label for="productoSelect_Tiempo">Seleccionar Producto</label>
-                                <select id="productoSelect_Tiempo" class="form-select">
-                                    
-                                </select>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="lineChartPrecios" style="height: 300px; width: 100%;"></canvas>
-                                    </div>                                    
+
+                                <div class="col-12 mb-3">
+                                    <label for="productoSelect_Tiempo">Seleccionar Producto</label>
+                                    <select id="productoSelect_Tiempo" class="form-select">
+                                        
+                                    </select>
                                 </div>
+
+                                <div class="col-12">
+                                    <div class="card card-gray shadow w-lg-100">
+                                        <div class="card-body">
+                                            <!-- Imagen de espera -->
+                                            <div id="loadingImagePrices" class="chart-container text-center" style="display: block;">
+                                                <img src="{{ asset('storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
+                                                style="max-height: 250px;">
+                                                <p class="text-muted mt-2">Cargando variación de precios...</p>
+                                            </div>
+                                            <!-- Gráfico -->
+                                            <div class="chart-container" id="chartPricesContainer" style="display: none;">
+                                                <canvas id="lineChartPrecios"  style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
 
                             </div>
 
                         </div>
 
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -249,18 +267,19 @@
                 $('#chartContainer').hide();
             }
         });
+
         $('#productoSelect_Tiempo').on('change', function () {
             const codigoProducto = $(this).val();
             if (codigoProducto) {
+                $('#loadingImagePrices').hide();
+                $('#chartPricesContainer').show();
                 cargarVariacionPrecios(codigoProducto);
             } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Seleccione un producto',
-                    text: 'Debe seleccionar un producto para ver su variación de precios.',
-                });
+                $('#loadingImagePrices').show();
+                $('#chartPricesContainer').hide();
             }
         });
+
 
 
     });
@@ -403,13 +422,12 @@
         });
     }
 
-
     function cargarProductosPocoStock() {
         const table = $("#tbl_productos_poco_stock");
         const tbody = table.find("tbody");
 
         // Mostrar la imagen de carga y limpiar el contenido de la tabla
-                tbody.html(`
+        tbody.html(`
             <tr id="loadingRow">
                 <td colspan="4" class="text-center">
                     <img src="/assets/dist/img/Espera.svg" alt="Cargando..." style="max-height: 150px;">
@@ -418,20 +436,16 @@
             </tr>
         `);
 
-                // Realizar la solicitud AJAX
-                $.ajax({
-                    url: "/productos/poco-stock",
-                    type: "GET",
-                    success: function(response) {
-                        if (response.success && response.productos.length > 0) {
-                            // Remover la fila de carga
-                            tbody.empty();
-
-                            // Añadir las filas de productos
-                            response.productos.forEach(producto => {
-                                const rowClass = producto.stock_actual < producto.minimo_stock ?
-                                    'table-danger' : '';
-                                tbody.append(`
+        // Realizar la solicitud AJAX
+        $.ajax({
+            url: "/productos/poco-stock",
+            type: "GET",
+            success: function(response) {
+                if (response.success && response.productos.length > 0) {
+                    tbody.empty(); // Remover la fila de carga
+                    response.productos.forEach(producto => {
+                        const rowClass = producto.stock_actual < producto.minimo_stock ? 'table-danger' : '';
+                        tbody.append(`
                             <tr class="${rowClass}">
                                 <td>${producto.producto}</td>
                                 <td class="text-center">${producto.almacen}</td>
@@ -439,10 +453,9 @@
                                 <td class="text-center">${producto.minimo_stock}</td>
                             </tr>
                         `);
-                            });
-                        } else {
-                            // Mostrar mensaje si no hay productos
-                            tbody.html(`
+                    });
+                } else {
+                    tbody.html(`
                         <tr>
                             <td colspan="4" class="text-center text-muted">
                                 <img src="/assets/dist/img/Espera.svg" alt="Sin productos" style="max-height: 150px;">
@@ -450,11 +463,10 @@
                             </td>
                         </tr>
                     `);
-                        }
-                    },
-                    error: function() {
-                        // Mostrar mensaje de error
-                        tbody.html(`
+                }
+            },
+            error: function() {
+                tbody.html(`
                     <tr>
                         <td colspan="4" class="text-center text-danger">
                             <img src="/assets/dist/img/Espera.svg" alt="Error" style="max-height: 150px;">
@@ -462,9 +474,10 @@
                         </td>
                     </tr>
                 `);
-                    },
-                });
+            },
+        });
     }
+
 
     function cargarTotalProductos() {
         $.ajax({
@@ -582,6 +595,8 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                
                 plugins: {
                     legend: {
                         position: 'top',
@@ -659,6 +674,7 @@
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
