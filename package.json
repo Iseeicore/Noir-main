@@ -20,7 +20,10 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "dependencies": {
-        
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "^4.28.1"
+    },
+    "engines": {
+        "node": ">=18.0.0"
     }
 }
