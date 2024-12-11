@@ -21,7 +21,10 @@ use App\Http\Controllers\TipoCambioController;
 use App\Http\Controllers\DocumentoIngresoController;
 use App\Http\Controllers\DocumentoSalidaController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\CajaChicaController;
+use App\Http\Controllers\CajaContableController;
+use App\Http\Controllers\ReporteCajaContableController;
+use App\Http\Controllers\ReporteCajaChicaController;
 
 
 
@@ -242,6 +245,49 @@ Route::get('/tipo-cambio/fecha', [TipoCambioController::class, 'tipoCambioPorFec
 
 Route::post('/tipo-cambio/listar', [TipoCambioController::class, 'listarTipoCambio'])->name('tipo.cambio.listar');
 
+
+// CAJA CHICA
+Route::get('/caja-chica', [CajaChicaController::class, 'index'])->name('caja_chica.index');
+Route::post('/crear-saldo-inicial', [CajaChicaController::class, 'crearSaldoInicial'])->name('caja_chica.crear_saldo');
+Route::post('/registrar-gasto', [CajaChicaController::class, 'registrarGasto'])->name('caja_chica.registrar_gasto');
+Route::get('/listar-responsables', [CajaChicaController::class, 'listarResponsables'])->name('listar_responsables');
+
+Route::get('/caja-chica/listar', [CajaChicaController::class, 'listar'])->name('caja_chica.listar');
+Route::get('/caja-chica/movimientos', [CajaChicaController::class, 'listarMovimientos'])->name('caja_chica.listar_movimientos');
+
+// CAJA CONTABLE
+Route::prefix('caja-contable')->group(function () {
+    Route::get('/caja-contable', [CajaContableController::class, 'index'])->name('caja_contable.index');
+    Route::post('/caja-contable/crear-saldo', [CajaContableController::class, 'crearSaldoInicial'])->name('caja_contable.crear_saldo');
+    Route::post('/registrar-movimiento', [CajaContableController::class, 'registrarMovimiento'])->name('caja_contable.registrar_movimiento');
+    Route::get('/listar', [CajaContableController::class, 'listar'])->name('caja_contable.listar');
+    Route::get('/listar-movimientos', [CajaContableController::class, 'listarMovimientos'])->name('caja_contable.listar_movimientos');
+    Route::get('/listar-responsables', [CajaContableController::class, 'listarResponsables'])->name('caja_contable.listar_responsables');
+
+    // Ruta para cargar categorías
+    Route::get('/caja-contable/categorias', [CajaContableController::class, 'listarCategorias'])->name('caja_contable.listar_categorias');
+});
+
+// reporte caja chica
+Route::post('/reportecajachica/filtrar', [ReporteCajaChicaController::class, 'filtrar'])->name('reportecajachica.filtrar');
+Route::get('/reportecajachica/imprimir/{id}', [ReporteCajaChicaController::class, 'imprimir'])->name('reportecajachica.imprimir');
+Route::get('/reportecajachica', [ReporteCajaChicaController::class, 'index'])->name('reportecajachica');
+Route::get('/reportecajachica/listar', [ReporteCajaChicaController::class, 'listarMovimientos'])->name('reportecajachica.listar');
+Route::get('/caja_chica/descripciones', [ReporteCajaChicaController::class, 'listarDescripciones'])->name('caja_chica.listar_descripciones');
+
+// Rutas para el reporte de caja contable
+Route::get('/reporte-caja-contable/listar', [ReporteCajaContableController::class, 'listar'])->name('reportecajacontable.listar');
+Route::post('/reporte-caja-contable/filtrar', [ReporteCajaContableController::class, 'filtrar'])->name('reportecajacontable.filtrar');
+// Ruta para listar las cajas contables
+// Rutas para Reporte Caja Contable
+Route::get('/reporte-caja-contable/cajas', [ReporteCajaContableController::class, 'listarCajasContables'])->name('reportecajacontable.cajas');
+// Rutas para cargar los responsables
+Route::get('/reporte-caja-contable/responsables', [ReporteCajaContableController::class, 'listarResponsables'])->name('reportecajacontable.responsables');
+Route::get('/reportecajacontable/categorias', [ReporteCajaContableController::class, 'listarCategorias'])
+    ->name('caja_contable.listar_categorias');
+
+Route::post('/reportecajacontable/filtrar', [ReporteCajaContableController::class, 'filtrar'])
+    ->name('reportecajacontable.filtrar');
 
 
 

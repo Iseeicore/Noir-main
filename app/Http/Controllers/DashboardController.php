@@ -147,7 +147,7 @@ class DashboardController extends Controller
         $resultado = DB::select('CALL prc_listar_cantidad_total_Preciosxproductos_usuario_Dashboard(?)', [$almacenId]);
 
         $totalCompras = $resultado[0]->total_compras ?? 0; // Maneja valores nulos
-        $almacenNombre = $resultado[0]->almacen_nombre ?? 'No especificado';
+        $almacenNombre = $resultado[0]->almacen_nombre ?? 'A...';
 
         return response()->json([
             'success' => true,

@@ -58,7 +58,7 @@
                         </div>
                         <div>
                             <h5 id="totalDevoluciones" class="font-weight-bold mb-0">0</h5>
-                            <p class="text-muted mb-0">Doc Devoluciones del día</p>
+                            <p class="text-muted mb-0">Devoluciones del día</p>
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                                             <div id="loadingImage" class="chart text-center" style="display: block;">
                                                 <img src="{{ asset('assets/dist/img/loading.svg') }}" alt="Cargando..."
                                                     style="max-height: 250px;">
-                                                <p>Seleccione un producto para ver los movimientos</p>
+                                                <p class="text-muted mt-2">Cargando Movimientos...</p>
                                             </div>
                                             <!-- Gráfico -->
                                             <div class="chart" id="chartContainer" style="display: none;">
@@ -417,7 +417,7 @@
             },
             error: function() {
                 $('#totalCompras').text('Error');
-                $('#almacenNombre').text('Error al cargar el almacén');
+                $('#almacenNombre').text('Error la carga');
             },
         });
     }

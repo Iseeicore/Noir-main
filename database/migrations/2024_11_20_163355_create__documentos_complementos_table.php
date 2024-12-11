@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tipo_operaciones', function (Blueprint $table) {
             $table->increments('id')->comment('Identificador tipo operaciones');
             $table->string('descripcion')->comment('Nombre de los tipo de operaciones');
-            $table->enum('tipo', ['ENTRADA', 'SALIDA', 'DEVOLUCIÓN', 'NINGUNO'])->comment('Clasificación de las operaciones');
+            $table->enum('tipo', ['ENTRADA', 'SALIDA', 'DEVOLUCIÓN', 'NINGUNO','SALDO INICIAL'])->comment('Clasificación de las operaciones');
             $table->tinyInteger('estado')->default(1)->comment('Estado de la tipo de operacion');
         });
 

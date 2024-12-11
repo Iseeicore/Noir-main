@@ -328,8 +328,8 @@ return new class extends Migration
     DB::unprepared(<<<SQL
         CREATE  PROCEDURE `prc_listar_cantidad_total_Preciosxproductos_usuario_Dashboard` (IN `p_almacen_id` INT)   BEGIN
         SELECT 
-            IFNULL(SUM(p.costo_total), 0) AS total_compras,
-            a.nomb_almacen AS almacen_nombre
+            SUM(p.costo_total) AS total_compras,
+            MAX(a.nomb_almacen) AS almacen_nombre
         FROM producto p
         INNER JOIN almacen a ON p.id_almacen = a.id
         WHERE p.id_almacen = p_almacen_id
