@@ -1,0 +1,42 @@
+Necesitamos la url del proyecto 
+https://github.com/Iseeih/Noir-main.git
+
+Entramos en la carpeta xammp htdocs
+cd /c/xammp/htdocs
+
+luego dentro de la ruta que deseamos 
+Ejecutamos en Git bash
+
+git clone https://github.com/Iseeih/Noir-main.git 
+
+entramos en el editro de preferencias 
+Luego entramos a la terminal y ejecutaremos el comando 
+
+primero
+
+composer install
+
+segundo 
+
+npm install
+
+si es necesario boostrap
+npm install bootstrap
+
+Luego con esto instalado continuaremos tendremos un archivo llamado .env.example
+le sacaremos una copia y solo lo dejaremos como .env
+
+en este archivo tendremos que ubicar el app_key=
+
+generaremos la llave 
+
+php artisan key:generate
+
+
+si el proyecto no desplega revisa en ti editor de codigo en la carpeta 
+app/providers/AppServiceProvider
+
+        // if(config('app.env')=== 'local'){
+        //     $this->app['request']->server->set('HTTPS',true);
+        // }
+este codigo lo comentaremos si no esta comentado , esto dependera si estas con una red estable pero si no lo comentas 
