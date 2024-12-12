@@ -25,6 +25,7 @@ use App\Http\Controllers\CajaChicaController;
 use App\Http\Controllers\CajaContableController;
 use App\Http\Controllers\ReporteCajaContableController;
 use App\Http\Controllers\ReporteCajaChicaController;
+use App\Http\Controllers\CentroCostoController;
 
 
 
@@ -84,6 +85,14 @@ Route::get('/empresas/obtener/{id}', [EmpresasController::class, 'obtenerEmpresa
 Route::post('/empresas/actualizar/{id}', [EmpresasController::class, 'actualizarEmpresa'])->name('empresas.actualizar');
 Route::delete('/empresas/eliminar/{id}', [EmpresasController::class, 'eliminarEmpresa'])->name('empresas.eliminar');
 Route::get('/empresa-seleccionada', [EmpresasController::class, 'obtenerEmpresaSeleccionada'])->name('empresa.seleccionada');
+
+//centro costo 
+Route::post('/centro-costo/listarvista', action: [CentroCostoController::class, 'listarCentroCostoDatos'])->name('centro-costo.listar');
+Route::post('/centro-costo/cambiar_estado/{id}', [CentroCostoController::class, 'cambiarEstadoCentroCosto'])->name('centro-costo.cambiar_estado'); 
+Route::post('/centro-costo/guardar', [CentroCostoController::class, 'guardarCentroCosto'])->name('centro-costo.guardar');
+Route::post('/centro-costo/actualizar/{id}', [CentroCostoController::class, 'actualizarCentroCosto'])->name('centro-costo.actualizar');
+Route::get('/centro-costo/cargar-nucleo', [CentroCostoController::class, 'listarnucleo'])->name('centro-costo.cargar_nucleo');
+Route::delete('/centro-costo/eliminar/{id}', [CentroCostoController::class, 'eliminarCentroCosto'])->name('centro-costo.eliminar');
 
 
 

@@ -24,6 +24,8 @@ return new class extends Migration
         DB::table('nucleo')->insert([
             ['id' => 1, 'nomb_nucleo' => 'Nucleo Ezperanza', 'estado' => 1],
             ['id' => 2, 'nomb_nucleo' => 'Nucleo Zodiaco', 'estado' => 1],
+            ['id' => 3, 'nomb_nucleo' => 'Ninguno', 'estado' => 1],
+
         ]);
 
         DB::table('tipo_afectacion_igv')->insert([
@@ -66,7 +68,7 @@ return new class extends Migration
             ['id' => 1, 'modulo' => 'Tablero', 'padre_id' => '0', 'vista' => 'dashboard', 'icon_menu' => 'fas fa-tachometer-alt', 'orden' => 0],
             ['id' => 2, 'modulo' => 'Inventario', 'padre_id' => '0', 'vista' => '', 'icon_menu' => 'fas fa-warehouse', 'orden' => 1],
             ['id' => 3, 'modulo' => 'Kardex Stock', 'padre_id' => '8', 'vista' => 'producto', 'icon_menu' => 'fas fa-check-circle', 'orden' => 14],
-            ['id' => 4, 'modulo' => 'Carga Masiva', 'padre_id' => '2', 'vista' => 'carga_masiva', 'icon_menu' => 'fas fa-check-circle', 'orden' => 5],
+            ['id' => 4, 'modulo' => 'Centro Costo', 'padre_id' => '2', 'vista' => 'CentroCosto', 'icon_menu' => 'fas fa-check-circle', 'orden' => 5],
             ['id' => 5, 'modulo' => 'Administracion', 'padre_id' => '0', 'vista' => '', 'icon_menu' => 'fas fa-users-cog', 'orden' => 6],
             ['id' => 6, 'modulo' => 'Seguridad', 'padre_id' => '0', 'vista' => '', 'icon_menu' => 'fas fa-user-shield', 'orden' => 8],
             ['id' => 7, 'modulo' => 'Usuarios', 'padre_id' => '6', 'vista' => 'register', 'icon_menu' => 'fas fa-check-circle', 'orden' => 9],
