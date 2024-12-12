@@ -236,7 +236,27 @@
 
                         </div>
                     </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card card-gray shadow w-lg-100 float-right mt-4">
+                            <div class="card-body px-3 py-3 fw-bold" style="position: relative;">
+                                <span class="titulo-fieldset px-3 py-1">Gráfico de Movimientos por Medio de Pago</span>
+                                <div class="card-body">
+                                    <div class="form-group mb-4">
+                                        <label for="medioPagoSelect" class="font-weight-bold text-dark">Seleccionar Medio de Pago:</label>
+                                        <select id="medioPagoSelect" class="form-control border-primary">
+                                            <option value="">-- Todos los Medios de Pago --</option>
+                                            <!-- Opciones dinámicas -->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <canvas id="chartMedioPago"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
                 <div class="row">
 
                     
@@ -244,6 +264,7 @@
             </div>
         </div>
 <script>
+    var chart;
     $(document).ready(function() {
         cargarProductos();
         cargarProductosPocoStock();
@@ -251,6 +272,7 @@
         cargarTotalComprasPorAlmacen();
         cargarProductosPocoStockConteo();
         cargarVentasDelDia();
+        cargarDatosMedioPago();
         cargarTotalIngresosDelDia();
         cargarDevolucionesDelDia();
         cargarProductosTiempo();
@@ -373,6 +395,99 @@
         });
     }
 
+    // Inicialización del gráfico
+    function inicializarGraficoMedioPago(datos, categorias, categoriaId = null) {
+            const ctx = document.getElementById('chartMedioPago').getContext('2d');
+
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            const totales = Array(12).fill(0);
+            const cantidades = Array(12).fill(0);
+
+            if (categoriaId && datos[categoriaId]) {
+                const data = datos[categoriaId]['meses'];
+                for (const mes in data) {
+                    totales[mes - 1] = data[mes].total;
+                    cantidades[mes - 1] = data[mes].cantidad;
+                }
+            } else {
+                for (const id in datos) {
+                    const data = datos[id]['meses'];
+                    for (const mes in data) {
+                        totales[mes - 1] += data[mes].total;
+                        cantidades[mes - 1] += data[mes].cantidad;
+                    }
+                }
+            }
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: meses,
+                    datasets: [
+                        {
+                            label: 'Total (S/.)',
+                            data: totales,
+                            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Cantidad de Movimientos',
+                            data: cantidades,
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Meses'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    // Cargar datos para el gráfico
+    function cargarDatosMedioPago() {
+        $.ajax({
+            url: '{{ route("caja_contable.medio_pago_datos") }}',
+            method: 'GET',
+            success: function (response) {
+                const { datos, categorias } = response;
+
+                const select = $('#medioPagoSelect');
+                select.empty().append('<option value="">-- Todos los Medios de Pago --</option>');
+                for (const id in categorias) {
+                    select.append(`<option value="${id}">${categorias[id]}</option>`);
+                }
+
+                inicializarGraficoMedioPago(datos, categorias);
+
+                select.off('change').on('change', function () {
+                    const categoriaId = $(this).val();
+                    inicializarGraficoMedioPago(datos, categorias, categoriaId);
+                });
+            },
+            error: function () {
+                alert('Error al cargar los datos del gráfico.');
+            }
+        });
+    }
 
 
     function cargarDevolucionesDelDia() {

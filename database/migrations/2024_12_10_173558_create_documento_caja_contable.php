@@ -11,6 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('bancos', function (Blueprint $table) {
+            $table->id();  // id Primaria (AUTO_INCREMENT)
+            $table->string('nombre_banco', 255);  // Nombre del banco
+            $table->enum('tipo_moneda', ['Soles', 'Dolares']);  // Tipo de moneda
+            $table->string('numero_cuenta', 50);  // Número de cuenta
+            $table->tinyInteger('estado')->default(1);  // Estado (1: activo, 0: inactivo)
+            $table->timestamps();  // created_at y updated_at
+        });
+
         Schema::create('caja_chica', function (Blueprint $table) {
             $table->id();
             $table->decimal('monto_inicial', 10, 2)->comment('Monto inicial asignado a la caja chica');
@@ -18,12 +27,16 @@ return new class extends Migration
             $table->decimal('monto_gastado', 10, 2)->default(0)->comment('Monto gastado hasta el momento');
             $table->string('descripcion')->nullable()->comment('Descripción o propósito de la caja chica');
             $table->unsignedBigInteger('encargado')->comment('Usuario encargado de esta caja chica');
+            $table->unsignedBigInteger('banco_id')->nullable()->comment('banco');
+            
             $table->date('fecha_creacion');
             $table->tinyInteger('estado')->default(1)->comment('Estado de la caja chica: 1 activa, 0 inactiva');
             $table->timestamps();
 
             // Relación con la tabla usuarios
             $table->foreign('encargado')->references('id_usuario')->on('usuarios');
+            $table->foreign('banco_id')->references('id')->on('bancos');
+
         });
 
         Schema::create('categorias_movimientos', function (Blueprint $table) {
@@ -58,6 +71,8 @@ return new class extends Migration
             $table->decimal('monto_ingresado', 10, 2)->default(0)->comment('Monto total ingresado');
             $table->decimal('monto_gastado', 10, 2)->default(0)->comment('Monto total gastado');
             $table->unsignedBigInteger('responsable')->comment('Usuario responsable de esta caja contable');
+            $table->unsignedBigInteger('banco_id')->nullable()->comment('Usuario responsable de esta caja contable');
+            
             $table->string('descripcion')->nullable()->comment('Descripción o propósito de la caja contable');
             $table->date('fecha_creacion')->comment('Fecha de creación de la caja');
             $table->tinyInteger('estado')->default(1)->comment('Estado de la caja: 1 activa, 0 inactiva');
@@ -65,6 +80,8 @@ return new class extends Migration
 
             // Relación con la tabla usuarios
             $table->foreign('responsable')->references('id_usuario')->on('usuarios');
+            $table->foreign('banco_id')->references('id')->on('bancos');
+            
         });
 
         Schema::create('movimientos_caja_contable', function (Blueprint $table) {
@@ -86,6 +103,9 @@ return new class extends Migration
             $table->foreign('categoria_id')->references('id')->on('categorias_movimientos');
         });
 
+
+
+
     }
 
     /**
@@ -93,12 +113,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        
+        Schema::dropIfExists('bancos');
         Schema::dropIfExists('caja_chica');
         Schema::dropIfExists('categorias_movimientos');
         Schema::dropIfExists('movimientos_caja_chica');
         Schema::dropIfExists('caja_contable');
         Schema::dropIfExists('movimientos_caja_contable');
+
     }
 
 };

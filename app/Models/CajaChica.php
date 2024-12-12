@@ -54,9 +54,18 @@ class CajaChica extends Model
             return $this->hasMany(MovimientoCajaChica::class, 'id_caja_chica');
         }
 
+        protected static function boot()
+{
+    parent::boot();
 
-
-
+    static::creating(function ($cajaChica) {
+        // Verificar que el banco asociado sea el único permitido
+        $banco = Banco::find($cajaChica->banco_id);
+        if (!$banco || $banco->id !== 1 || $banco->nombre_banco !== 'BBVA SOLES' || $banco->tipo_moneda !== 'Soles') {
+            throw new \Exception('Solo el banco BBVA SOLES con moneda en Soles puede manejar Caja Chica.');
+        }
+    });
+}
 
 
 }

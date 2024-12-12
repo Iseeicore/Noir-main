@@ -28,6 +28,13 @@ return new class extends Migration
 
         ]);
 
+
+        DB::table('bancos')->insert([
+            ['id' => 1, 'nombre_banco' => 'BBVA SOLES', 'tipo_moneda' => 'Soles', 'numero_cuenta' => 0001-2225-2556, 'estado' => 1, 'created_at' => null, 'updated_at' => null],
+            ['id' => 2, 'nombre_banco' => 'BBVA DOLARES', 'tipo_moneda' => 'Dolares', 'numero_cuenta' => 0001-2225-2557, 'estado' => 1, 'created_at' => null, 'updated_at' => null],
+            ['id' => 3, 'nombre_banco' => 'BANCO NACION SOLES', 'tipo_moneda' => 'Soles', 'numero_cuenta' => 0001-2225-2558, 'estado' => 1, 'created_at' => null, 'updated_at' => null],
+        ]);
+
         DB::table('tipo_afectacion_igv')->insert([
             [
                 'id' => 1,
@@ -95,6 +102,8 @@ return new class extends Migration
             ['id' => 30, 'modulo' => 'C/Chica', 'padre_id' => '28', 'vista' => 'Cajas/CajaChica/caja_chica', 'icon_menu' => 'fas fa-check-circle', 'orden' => 26],
             ['id' => 31, 'modulo' => 'R/CajaChica', 'padre_id' => '8', 'vista' => 'Cajas/CajaChica/reportecajachica', 'icon_menu' => 'fas fa-check-circle', 'orden' => 27],
             ['id' => 32, 'modulo' => 'R/CajaContable', 'padre_id' => '8', 'vista' => 'Cajas/CajaContable/reportecajacontable', 'icon_menu' => 'fas fa-check-circle', 'orden' => 28],
+            ['id' => 33, 'modulo' => 'Bancos', 'padre_id' => '5', 'vista' => 'banco/crear_bancos', 'icon_menu' => 'fas fa-check-circle', 'orden' => 29],
+            
         ]);
 
         DB::table('perfiles')->insert([

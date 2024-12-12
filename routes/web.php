@@ -26,6 +26,8 @@ use App\Http\Controllers\CajaContableController;
 use App\Http\Controllers\ReporteCajaContableController;
 use App\Http\Controllers\ReporteCajaChicaController;
 use App\Http\Controllers\CentroCostoController;
+use App\Http\Controllers\BancoController;
+
 
 
 
@@ -256,13 +258,21 @@ Route::post('/tipo-cambio/listar', [TipoCambioController::class, 'listarTipoCamb
 
 
 // CAJA CHICA
-Route::get('/caja-chica', [CajaChicaController::class, 'index'])->name('caja_chica.index');
+
+Route::get('caja-chica', [CajaChicaController::class, 'index'])->name('caja_chica.index');
+
 Route::post('/crear-saldo-inicial', [CajaChicaController::class, 'crearSaldoInicial'])->name('caja_chica.crear_saldo');
 Route::post('/registrar-gasto', [CajaChicaController::class, 'registrarGasto'])->name('caja_chica.registrar_gasto');
 Route::get('/listar-responsables', [CajaChicaController::class, 'listarResponsables'])->name('listar_responsables');
-
 Route::get('/caja-chica/listar', [CajaChicaController::class, 'listar'])->name('caja_chica.listar');
 Route::get('/caja-chica/movimientos', [CajaChicaController::class, 'listarMovimientos'])->name('caja_chica.listar_movimientos');
+
+Route::post('/caja-chica/validar-banco', [CajaChicaController::class, 'validarBanco'])->name('caja_chica.validar_banco');
+
+Route::get('/caja-chica/listar-bancos', [CajaChicaController::class, 'listarBancos'])->name('caja_chica.listar_bancos');
+
+
+
 
 // CAJA CONTABLE
 Route::prefix('caja-contable')->group(function () {
@@ -271,11 +281,17 @@ Route::prefix('caja-contable')->group(function () {
     Route::post('/registrar-movimiento', [CajaContableController::class, 'registrarMovimiento'])->name('caja_contable.registrar_movimiento');
     Route::get('/listar', [CajaContableController::class, 'listar'])->name('caja_contable.listar');
     Route::get('/listar-movimientos', [CajaContableController::class, 'listarMovimientos'])->name('caja_contable.listar_movimientos');
-    Route::get('/listar-responsables', [CajaContableController::class, 'listarResponsables'])->name('caja_contable.listar_responsables');
 
+    Route::get('/listar-responsables', [CajaContableController::class, 'listarResponsables'])->name('caja_contable.listar_responsables');
     // Ruta para cargar categorías
     Route::get('/caja-contable/categorias', [CajaContableController::class, 'listarCategorias'])->name('caja_contable.listar_categorias');
+
+    Route::post('/caja-contable/validar-banco', [CajaContableController::class, 'validarBanco'])->name('caja_contable.validar_banco');
+    Route::get('/caja-contable/listar-bancos', [CajaChicaController::class, 'listarBancos'])->name('caja_contable.listar_bancos');
 });
+
+
+
 
 // reporte caja chica
 Route::post('/reportecajachica/filtrar', [ReporteCajaChicaController::class, 'filtrar'])->name('reportecajachica.filtrar');
@@ -283,6 +299,8 @@ Route::get('/reportecajachica/imprimir/{id}', [ReporteCajaChicaController::class
 Route::get('/reportecajachica', [ReporteCajaChicaController::class, 'index'])->name('reportecajachica');
 Route::get('/reportecajachica/listar', [ReporteCajaChicaController::class, 'listarMovimientos'])->name('reportecajachica.listar');
 Route::get('/caja_chica/descripciones', [ReporteCajaChicaController::class, 'listarDescripciones'])->name('caja_chica.listar_descripciones');
+
+
 
 // Rutas para el reporte de caja contable
 Route::get('/reporte-caja-contable/listar', [ReporteCajaContableController::class, 'listar'])->name('reportecajacontable.listar');
@@ -297,6 +315,18 @@ Route::get('/reportecajacontable/categorias', [ReporteCajaContableController::cl
 
 Route::post('/reportecajacontable/filtrar', [ReporteCajaContableController::class, 'filtrar'])
     ->name('reportecajacontable.filtrar');
+
+
+// ruta de dashboard caja contable
+Route::get('/caja-contable/medio-pago-datos', [CajaContableController::class, 'obtenerDatosMedioPago'])->name('caja_contable.medio_pago_datos');
+
+
+
+
+
+Route::post('/bancos', [BancoController::class, 'store'])->name('bancos.store');
+Route::resource('bancos', BancoController::class);
+Route::delete('/bancos/{id}', [BancoController::class, 'destroy'])->name('bancos.destroy');
 
 
 
