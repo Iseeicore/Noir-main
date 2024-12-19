@@ -139,7 +139,7 @@
                                         <div class="card-body">
                                             <!-- Imagen de espera -->
                                             <div id="loadingImage" class="chart text-center" style="display: block;">
-                                                <img src="{{ asset('assets/dist/img/loading.svg') }}" alt="Cargando..."
+                                                <img src="{{ asset('../assets/dist/storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
                                                     style="max-height: 250px;">
                                                 <p class="text-muted mt-2">Cargando Movimientos...</p>
                                             </div>
@@ -182,7 +182,7 @@
                                         <div class="card-body">
                                             <!-- Imagen de espera -->
                                             <div id="loadingImagePrices" class="chart-container text-center" style="display: block;">
-                                                <img src="{{ asset('storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
+                                                <img src="{{ asset('assets/dist/img/loading.svg') }}" alt="Cargando..."
                                                 style="max-height: 250px;">
                                                 <p class="text-muted mt-2">Cargando variación de precios...</p>
                                             </div>

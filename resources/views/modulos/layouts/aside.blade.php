@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link d-flex align-items-center">
-        <img src="" id="logo_sistema" alt="Logo Empresa" class="brand-image img-circle elevation-3 me-2" style="width: 35px; height: 35px; opacity: .8;">
+        <img src="{{ asset('/assets/dist/img/logos_empresas/no_image.jpg') }}" id="logo_sistema" class="brand-image img-circle elevation-3 me-2" style="width: 35px; height: 35px; opacity: .8;">
         <span id="nombre_comercial" class="brand-text font-weight-light text-truncate" style="max-width: 150px;">Nombre Empresa</span>
     </a>
     
