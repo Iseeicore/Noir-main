@@ -215,6 +215,16 @@
         generarCodigoPeriodo(this.value);
     });
 
+    $('#fecha_emision').on('change', function () {
+        const fechaSeleccionada = $(this).val(); // Obtener la fecha seleccionada
+        const monedaSeleccionada = $('#tipo_cambio').val(); // Obtener la moneda seleccionada
+
+        if (fechaSeleccionada && monedaSeleccionada) {
+            cargarTipoCambio(fechaSeleccionada, monedaSeleccionada); // Llamar a la función con la fecha y la moneda
+        }
+    });
+
+
 
         /// Evento para agregar nuevas filas
     $('#btnAgregar').on('click', function() {
@@ -227,10 +237,26 @@
         eliminarFila(this);
     });
 
+    // $('#tipo_cambio').on('change', function () {
+    //     const monedaSeleccionada = $(this).val(); // USD o PEN
+    //     cargarTipoCambio(monedaSeleccionada); // Llamada a la función
+    // });
+
     $('#tipo_cambio').on('change', function () {
         const monedaSeleccionada = $(this).val(); // USD o PEN
-        cargarTipoCambio(monedaSeleccionada); // Llamada a la función
+        const fechaSeleccionada = $('#fecha_emision').val(); // Obtener la fecha seleccionada
+
+        if (monedaSeleccionada && fechaSeleccionada) {
+            cargarTipoCambio(fechaSeleccionada, monedaSeleccionada); // Llamar a la función con la fecha y la moneda
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: 'Por favor, seleccione una fecha de emisión y una moneda.',
+            });
+        }
     });
+
 
     $('#comprobante_pago, #numerodocumento, #numerosecundariodocumento').on('change keyup', function () {
         actualizarGlosario();
@@ -579,12 +605,13 @@ function cargarComprobantePago() {
 }
 
 
-function cargarTipoCambio(monedaSeleccionada) {
-    if (monedaSeleccionada) {
+function cargarTipoCambio(fechaSeleccionada, monedaSeleccionada) {
+    if (monedaSeleccionada && fechaSeleccionada) {
         $.ajax({
-            url: '{{ route("documento-ingreso.cargar-tipo-cambio") }}',
+            url: '{{ route("documento-ingreso.cargar-tipo-cambio-por-fecha") }}',
             type: 'POST',
             data: {
+                fecha: fechaSeleccionada, // Agregar la fecha como parámetro
                 moneda: monedaSeleccionada,
                 _token: '{{ csrf_token() }}', // Token CSRF
             },

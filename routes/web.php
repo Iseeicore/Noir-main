@@ -145,7 +145,7 @@ Route::get('/cargar-almacenes-usuario', [DocumentoIngresoController::class, 'car
 
 
 Route::get('/documento-ingreso/comprobante-pago', [DocumentoIngresoController::class, 'cargarComprobantePago'])->name('documento-ingreso.comprobante-pago');
-Route::post('/documento-ingreso/cargar-tipo-cambio', [DocumentoIngresoController::class, 'cargarTipoCambio'])->name('documento-ingreso.cargar-tipo-cambio');
+Route::post('/documento-ingreso/cargar-tipo-cambio', [DocumentoIngresoController::class, 'cargarTipoCambioPorFecha'])->name('documento-ingreso.cargar-tipo-cambio-por-fecha');
 
 Route::get('/documento-ingreso/{id}', [DocumentoIngresoController::class, 'obtenerDocumentoIngreso'])->name('obtener_documento_ingreso');
 

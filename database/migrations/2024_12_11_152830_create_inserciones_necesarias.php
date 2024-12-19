@@ -149,7 +149,7 @@ return new class extends Migration
 
         DB::table('config_rutas')->insert([
             ['id' => 1,'api_url' => 'https://dniruc.apisperu.com/api/v1/ruc','api_token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFyaXNlc2NycEBnbWFpbC5jb20ifQ.xE8AVDAGBNR7j1DSr56rUXbjJzhy7oXo59qdjAL_wLY','UsuarioModificar' => 1],
-            ['id' => 2,'api_url' => 'https://api.apis.net.pe/v2/sbs/tipo-cambio','api_token' => 'apis-token-11661.mg6ob2gQLMRkvYPVeZwr78glq7eCZDlr','UsuarioModificar' => 1],
+            ['id' => 2,'api_url' => 'https://api.apis.net.pe/v2/sunat/tipo-cambio','api_token' => 'apis-token-11661.mg6ob2gQLMRkvYPVeZwr78glq7eCZDlr','UsuarioModificar' => 1],
         ]);
 
         DB::table('codigoacceso')->insert([
