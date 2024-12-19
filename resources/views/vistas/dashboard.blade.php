@@ -63,8 +63,8 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
 
             <!-- TARJETA TOTAL GANANCIAS -->
             <div class="col-12 col-md-3 col-lg-2 mb-3">
@@ -173,7 +173,7 @@
                                 <div class="col-12 mb-3">
                                     <label for="productoSelect_Tiempo">Seleccionar Producto</label>
                                     <select id="productoSelect_Tiempo" class="form-select">
-                                        
+
                                     </select>
                                 </div>
 
@@ -193,7 +193,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                             </div>
 
@@ -259,7 +259,7 @@
             </div>
                 <div class="row">
 
-                    
+
                 </div>
             </div>
         </div>
@@ -711,7 +711,7 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                
+
                 plugins: {
                     legend: {
                         position: 'top',
