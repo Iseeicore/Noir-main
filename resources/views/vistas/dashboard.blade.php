@@ -139,7 +139,7 @@
                                         <div class="card-body">
                                             <!-- Imagen de espera -->
                                             <div id="loadingImage" class="chart text-center" style="display: block;">
-                                                <img src="{{ asset('../assets/dist/storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
+                                                <img src="{{ asset('storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
                                                     style="max-height: 250px;">
                                                 <p class="text-muted mt-2">Cargando Movimientos...</p>
                                             </div>
