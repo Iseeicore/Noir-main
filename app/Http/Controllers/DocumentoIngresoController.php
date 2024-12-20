@@ -196,51 +196,42 @@ public function cargarComprobantePago()
 }
 
 
-public function cargarTipoCambio(Request $request)
+public function cargarTipoCambioPorFecha(Request $request)
 {
-    $moneda = $request->input('moneda'); // Recibimos 'USD' o 'PEN'
-    $fechaActual = now()->format('Y-m-d'); // Fecha actual en formato Y-m-d
+    $fecha = $request->input('fecha'); // Fecha proporcionada desde el formulario
+    $moneda = $request->input('moneda'); // Moneda seleccionada (USD o PEN)
 
-    if ($moneda === 'USD') {
-        // Buscar tipo de cambio de USD -> PEN para la fecha actual
-        $tipoCambio = TipoCambio::where('moneda_origen', 'USD')
-            ->where('moneda_destino', 'PEN')
-            ->where('fecha', $fechaActual)
-            ->first();
-
-        if ($tipoCambio) {
-            return response()->json([
-                'success' => true,
-                'id' => $tipoCambio->id,
-                'tipo_cambio_compra' => $tipoCambio->tipo_cambio_compra,
-                'tipo_cambio_venta' => $tipoCambio->tipo_cambio_venta,
-            ]);
-        }
+    // Validar que la fecha no esté vacía
+    if (!$fecha) {
+        return response()->json([
+            'success' => false,
+            'message' => 'La fecha es requerida.',
+        ], 400);
     }
 
-    if ($moneda === 'PEN') {
-        // Buscar el tipo de cambio de USD -> PEN para obtener el tipo_cambio_venta como referencia
-        $tipoCambio = TipoCambio::where('moneda_origen', 'USD')
-            ->where('moneda_destino', 'PEN')
-            ->where('fecha', $fechaActual)
-            ->first();
+    // Buscar el tipo de cambio en la base de datos para la fecha proporcionada
+    $tipoCambio = TipoCambio::where('fecha', $fecha)
+        ->where('moneda_origen', $moneda === 'PEN' ? 'USD' : $moneda)
+        ->where('moneda_destino', 'PEN')
+        ->first();
 
-        if ($tipoCambio) {
-            return response()->json([
-                'success' => true,
-                'id' => $tipoCambio->id,
-                'tipo_cambio_compra' => $tipoCambio->tipo_cambio_venta, // Usamos el tipo de cambio venta
-                'tipo_cambio_venta' => $tipoCambio->tipo_cambio_venta,
-            ]);
-        }
+    if ($tipoCambio) {
+        // Si se encuentra el tipo de cambio, devolver los datos
+        return response()->json([
+            'success' => true,
+            'id' => $tipoCambio->id,
+            'tipo_cambio_compra' => $tipoCambio->tipo_cambio_compra,
+            'tipo_cambio_venta' => $tipoCambio->tipo_cambio_venta,
+        ]);
+    } else {
+        // Si no se encuentra el tipo de cambio, devolver un mensaje de error
+        return response()->json([
+            'success' => false,
+            'message' => 'No se encontró un tipo de cambio para la fecha seleccionada.',
+        ], 404);
     }
-
-    // Si no se encontró ningún tipo de cambio para la fecha actual
-    return response()->json([
-        'success' => false,
-        'message' => 'No se encontró un tipo de cambio para la fecha actual. Verifique el módulo de tipo de cambio.',
-    ]);
 }
+
 
 public function store(Request $request)
 {

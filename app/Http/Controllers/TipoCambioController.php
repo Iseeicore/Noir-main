@@ -9,10 +9,10 @@ use App\Models\ConfigRutas;
 
 class TipoCambioController extends Controller
 {
-    private $apiUrl = 'https://api.apis.net.pe/v2/sbs/tipo-cambio';
+    private $apiUrl = 'https://api.apis.net.pe/v2/sunat/tipo-cambio';
     private $apiToken = 'apis-token-11661.mg6ob2gQLMRkvYPVeZwr78glq7eCZDlr';
 
-    public function tipoCambioHoy()
+public function tipoCambioHoy()
 {
     $fechaHoy = now()->toDateString();
 
@@ -34,19 +34,24 @@ class TipoCambioController extends Controller
 
     // Si no existe, obtener de la API
     try {
-        $response = Http::withToken($this->apiToken)->get($this->apiUrl);
+        $response = Http::withToken($this->apiToken)
+            ->withHeaders([
+                'Referer' => 'https://apis.net.pe/tipo-de-cambio-sunat-api',
+            ])
+            ->get('https://api.apis.net.pe/v2/sunat/tipo-cambio');
 
         if ($response->successful()) {
             $data = $response->json();
 
-            if (isset($data['precioCompra'], $data['precioVenta'], $data['fecha'])) {
+            // Ajustar según la estructura de la respuesta de la API
+            if (isset($data['compra'], $data['venta'], $data['fecha'])) {
                 // Guardar en la base de datos
                 $tipoCambio = TipoCambio::create([
                     'fecha' => $fechaHoy,
                     'moneda_origen' => 'USD',
                     'moneda_destino' => 'PEN',
-                    'tipo_cambio_compra' => $data['precioCompra'],
-                    'tipo_cambio_venta' => $data['precioVenta'],
+                    'tipo_cambio_compra' => $data['compra'],
+                    'tipo_cambio_venta' => $data['venta'],
                     'estado' => 1
                 ]);
 
@@ -80,43 +85,7 @@ class TipoCambioController extends Controller
         ], 500);
     }
 }
-
-
-    // public function tipoCambioPorFecha(Request $request)
-    // {
-    //     $fecha = $request->input('date');
-    //     $moneda = $request->input('currency', 'USD'); // Por defecto será USD si no se especifica
-
-    //     try {
-    //         $response = Http::withToken($this->apiToken)
-    //             ->get("{$this->apiUrl}?date={$fecha}&currency={$moneda}");
-
-    //         if ($response->successful()) {
-    //             $data = $response->json();
-    //             return response()->json([
-    //                 'success' => true,
-    //                 'data' => [
-    //                     'fecha' => $data['fecha'],
-    //                     'compra' => $data['precioCompra'] ?? null, // Asegúrate de que el nombre del campo coincida
-    //                     'venta' => $data['precioVenta'] ?? null,
-    //                     'moneda' => $moneda
-    //                 ]
-    //             ]);
-    //         }
-
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'No se pudo obtener el tipo de cambio para la fecha y moneda seleccionada.'
-    //         ], 500);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'Error al conectar con la API.',
-    //             'error' => $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
-    public function tipoCambioPorFecha(Request $request)
+public function tipoCambioPorFecha(Request $request)
 {
     $fecha = $request->input('date');
     $moneda = $request->input('currency', 'USD'); // Por defecto será USD
