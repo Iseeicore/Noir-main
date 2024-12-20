@@ -1,4 +1,4 @@
-!-- resources/views/modulos/partials/dashboard_content.blade.php -->
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
