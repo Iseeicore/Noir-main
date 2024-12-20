@@ -1,4 +1,4 @@
-<!-- resources/views/modulos/partials/dashboard_content.blade.php -->
+!-- resources/views/modulos/partials/dashboard_content.blade.php -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -139,7 +139,7 @@
                                         <div class="card-body">
                                             <!-- Imagen de espera -->
                                             <div id="loadingImage" class="chart text-center" style="display: block;">
-                                                <img src="{{ asset('storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
+                                                <img src="{{ asset('assets/dist/img/loading.svg') }}" alt="Cargando..."
                                                     style="max-height: 250px;">
                                                 <p class="text-muted mt-2">Cargando Movimientos...</p>
                                             </div>
@@ -182,7 +182,7 @@
                                         <div class="card-body">
                                             <!-- Imagen de espera -->
                                             <div id="loadingImagePrices" class="chart-container text-center" style="display: block;">
-                                                <img src="{{ asset('assets/dist/img/loading.svg') }}" alt="Cargando..."
+                                                <img src="{{ asset('storage/assets/imagenes/cargas/Espera.svg') }}" alt="Cargando..."
                                                 style="max-height: 250px;">
                                                 <p class="text-muted mt-2">Cargando variación de precios...</p>
                                             </div>
@@ -238,18 +238,17 @@
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="card card-gray shadow w-lg-100 float-right mt-4">
-                            <div class="card-body px-3 py-3 fw-bold" style="position: relative;">
+                            <div class="card-body px-3 py-3 fw-bold">
                                 <span class="titulo-fieldset px-3 py-1">Gráfico de Movimientos por Medio de Pago</span>
                                 <div class="card-body">
                                     <div class="form-group mb-4">
                                         <label for="medioPagoSelect" class="font-weight-bold text-dark">Seleccionar Medio de Pago:</label>
                                         <select id="medioPagoSelect" class="form-control border-primary">
                                             <option value="">-- Todos los Medios de Pago --</option>
-                                            <!-- Opciones dinámicas -->
                                         </select>
                                     </div>
                                     <div>
-                                        <canvas id="chartMedioPago"></canvas>
+                                        <canvas id="graficoMovimientos"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -257,14 +256,12 @@
                     </div>
                 </div>
             </div>
-                <div class="row">
-
-
-                </div>
-            </div>
         </div>
+    </div>
+</div>
+
 <script>
-    var chart;
+var chart;
     $(document).ready(function() {
         cargarProductos();
         cargarProductosPocoStock();
@@ -306,7 +303,7 @@
 
     });
 
-    function cargarProductosTiempo() {
+     function cargarProductosTiempo() {
         $.ajax({
           url: '/dashboard/productostiempo',
           type: 'GET',
@@ -395,74 +392,10 @@
         });
     }
 
-    // Inicialización del gráfico
-    function inicializarGraficoMedioPago(datos, categorias, categoriaId = null) {
-            const ctx = document.getElementById('chartMedioPago').getContext('2d');
 
-            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-            const totales = Array(12).fill(0);
-            const cantidades = Array(12).fill(0);
 
-            if (categoriaId && datos[categoriaId]) {
-                const data = datos[categoriaId]['meses'];
-                for (const mes in data) {
-                    totales[mes - 1] = data[mes].total;
-                    cantidades[mes - 1] = data[mes].cantidad;
-                }
-            } else {
-                for (const id in datos) {
-                    const data = datos[id]['meses'];
-                    for (const mes in data) {
-                        totales[mes - 1] += data[mes].total;
-                        cantidades[mes - 1] += data[mes].cantidad;
-                    }
-                }
-            }
 
-            if (chart) {
-                chart.destroy();
-            }
 
-            chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: meses,
-                    datasets: [
-                        {
-                            label: 'Total (S/.)',
-                            data: totales,
-                            backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Cantidad de Movimientos',
-                            data: cantidades,
-                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Meses'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-    // Cargar datos para el gráfico
     function cargarDatosMedioPago() {
         $.ajax({
             url: '{{ route("caja_contable.medio_pago_datos") }}',
@@ -478,9 +411,17 @@
 
                 inicializarGraficoMedioPago(datos, categorias);
 
+                // Filtro por categoría y tipo de movimiento
                 select.off('change').on('change', function () {
                     const categoriaId = $(this).val();
-                    inicializarGraficoMedioPago(datos, categorias, categoriaId);
+                    const tipoMovimiento = $('#tipoMovimientoSelect').val();
+                    inicializarGraficoMedioPago(datos, categorias, categoriaId, tipoMovimiento);
+                });
+
+                $('#tipoMovimientoSelect').off('change').on('change', function () {
+                    const tipoMovimiento = $(this).val();
+                    const categoriaId = $('#medioPagoSelect').val();
+                    inicializarGraficoMedioPago(datos, categorias, categoriaId, tipoMovimiento);
                 });
             },
             error: function () {
@@ -488,6 +429,106 @@
             }
         });
     }
+
+    function inicializarGraficoMedioPago(datos, categorias, categoriaId = '', tipoMovimiento = '') {
+        const ingresos = Array(12).fill(0);
+        const egresos = Array(12).fill(0);
+        const cantidadIngresos = Array(12).fill(0);
+        const cantidadEgresos = Array(12).fill(0);
+
+        datos.forEach(dato => {
+            if (categoriaId && dato.categoria_id != categoriaId) return;
+            if (tipoMovimiento && dato.tipo_movimiento !== tipoMovimiento) return;
+
+            const mesIndex = parseInt(dato.mes, 10) - 1;
+
+            if (dato.tipo_movimiento === "ingreso") {
+                ingresos[mesIndex] += parseFloat(dato.total);
+                cantidadIngresos[mesIndex] += parseInt(dato.cantidad, 10);
+            } else if (dato.tipo_movimiento === "egreso") {
+                egresos[mesIndex] += parseFloat(dato.total);
+                cantidadEgresos[mesIndex] += parseInt(dato.cantidad, 10);
+            }
+        });
+
+        const totalSoles = ingresos.map((ingreso, i) => ingreso - egresos[i]);
+
+        graficoMovimientos.data.datasets[0].data = ingresos;
+        graficoMovimientos.data.datasets[1].data = egresos;
+        graficoMovimientos.data.datasets[2].data = cantidadIngresos;
+        graficoMovimientos.data.datasets[3].data = cantidadEgresos;
+        graficoMovimientos.data.datasets[4].data = totalSoles;
+        graficoMovimientos.update();
+    }
+
+    const ctx = document.getElementById('graficoMovimientos').getContext('2d');
+    const graficoMovimientos = new Chart(ctx, {
+        type: 'line',
+       data: {
+            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            datasets: [
+                {
+                    label: 'TOTAL (Soles)',
+                    data: [],
+                    backgroundColor: 'rgba(128, 128, 128, 0.34)',
+                    borderColor: 'rgb(100, 100, 100)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Egresos (Soles)',
+                    data: [],
+                    backgroundColor: 'rgba(150, 48, 48, 0.39)',
+                    borderColor: 'rgb(87, 34, 34)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Cantidad de Ingresos',
+                    data: [],
+                    backgroundColor: 'rgba(255, 215, 0, 0.43)',
+                    borderColor: 'rgb(255, 215, 0)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Cantidad de Egresos',
+                    data: [],
+                    backgroundColor: 'rgba(150, 48, 48, 0.21)',
+                    borderColor: 'rgb(75, 29, 46)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Ingresos (Soles)',
+                    data: [],
+                    backgroundColor: 'rgba(120, 255, 149, 0.23)',
+                    borderColor: 'rgb(148, 255, 86)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Movimientos Mensuales por Categoría'
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    cargarDatosMedioPago();
+
+
 
 
     function cargarDevolucionesDelDia() {
@@ -814,3 +855,4 @@
 
 
 </script>
+

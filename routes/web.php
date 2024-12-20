@@ -50,7 +50,7 @@ Route::get('/', function () {
 
 // routes/web.php
 
-//Carga de la vistas 
+//Carga de la vistas
 Route::get('/cargar-contenido', [AjaxrutasController::class, 'cargarContenido'])->name('cargar.contenido');
 Route::get('/listar-cargas-masivas', [ProductoController::class, 'listarCargasMasivas'])->name('listar_cargas_masivas');
 
@@ -88,9 +88,9 @@ Route::post('/empresas/actualizar/{id}', [EmpresasController::class, 'actualizar
 Route::delete('/empresas/eliminar/{id}', [EmpresasController::class, 'eliminarEmpresa'])->name('empresas.eliminar');
 Route::get('/empresa-seleccionada', [EmpresasController::class, 'obtenerEmpresaSeleccionada'])->name('empresa.seleccionada');
 
-//centro costo 
+//centro costo
 Route::post('/centro-costo/listarvista', action: [CentroCostoController::class, 'listarCentroCostoDatos'])->name('centro-costo.listar');
-Route::post('/centro-costo/cambiar_estado/{id}', [CentroCostoController::class, 'cambiarEstadoCentroCosto'])->name('centro-costo.cambiar_estado'); 
+Route::post('/centro-costo/cambiar_estado/{id}', [CentroCostoController::class, 'cambiarEstadoCentroCosto'])->name('centro-costo.cambiar_estado');
 Route::post('/centro-costo/guardar', [CentroCostoController::class, 'guardarCentroCosto'])->name('centro-costo.guardar');
 Route::post('/centro-costo/actualizar/{id}', [CentroCostoController::class, 'actualizarCentroCosto'])->name('centro-costo.actualizar');
 Route::get('/centro-costo/cargar-nucleo', [CentroCostoController::class, 'listarnucleo'])->name('centro-costo.cargar_nucleo');
@@ -98,7 +98,7 @@ Route::delete('/centro-costo/eliminar/{id}', [CentroCostoController::class, 'eli
 
 
 
-//Documentos 
+//Documentos
 
 
 Route::post('/documentos/requerimientos', [DocumentosController::class, 'listarRequerimientos'])->name('requerimiento.listar');
@@ -123,7 +123,7 @@ Route::post('/documento-ingreso', [DocumentoIngresoController::class, 'store'])-
 
 
 
-//Documento Ingreso 
+//Documento Ingreso
 
 
 Route::post('/listar-documentos', [DocumentoIngresoController::class, 'listarDocumentos'])->name('listar.documentos');
@@ -150,7 +150,7 @@ Route::post('/documento-ingreso/cargar-tipo-cambio', [DocumentoIngresoController
 Route::get('/documento-ingreso/{id}', [DocumentoIngresoController::class, 'obtenerDocumentoIngreso'])->name('obtener_documento_ingreso');
 
 
-//Documento Salida 
+//Documento Salida
 Route::post('/listar-documentos-Salida', [DocumentoSalidaController::class, 'listarDocumentosSalida'])->name('documento-salida.listar');
 Route::get('/documento-salida/generar-codigo', [DocumentoSalidaController::class, 'generarCodigoDocumentoSalida'])->name('documento-salida.generar-codigo');
 Route::get('/documento-salida/obtener-almacen-usuario', [DocumentoSalidaController::class, 'obtenerAlmacenUsuario'])->name('documento-salida.obtener-almacen-usuario');
@@ -230,7 +230,7 @@ Route::post('/proveedores/actualizar/{id}', [AdministrativoController::class, 'a
 Route::delete('/proveedores/eliminar/{id}', [AdministrativoController::class, 'eliminarProveedor'])->name('proveedores.eliminar');
 Route::post('/proveedores/cambiar_estado/{id}', [AdministrativoController::class, 'cambiarEstadoProveedor'])->name('proveedores.cambiar_estado');
 
-//Extras Config 
+//Extras Config
 Route::get('/tipo-cambio/config', [TipoCambioController::class, 'getTipoCambioConfig'])->name('tipo.cambio.config.get');
 Route::post('/tipo-cambio/config/update', [TipoCambioController::class, 'updateTipoCambioConfig'])->name('tipo.cambio.config.update');
 Route::post('/tipo-cambio/config/restaurar', [TipoCambioController::class, 'restaurarTipoCambioConfig'])->name('tipo.cambio.config.restaurar');
@@ -249,7 +249,7 @@ Route::get('/buscar-usuario-dinamico', [SeguridadController::class, 'buscarUsuar
 Route::post('/actualizar-password', [SeguridadController::class, 'actualizarPassword']);
 
 
-//purebas tipo de cambio 
+//purebas tipo de cambio
 
 Route::get('/tipo-cambio/hoy', [TipoCambioController::class, 'tipoCambioHoy'])->name('tipo.cambio.hoy');
 Route::get('/tipo-cambio/fecha', [TipoCambioController::class, 'tipoCambioPorFecha'])->name('tipo.cambio.fecha');
@@ -330,7 +330,7 @@ Route::delete('/bancos/{id}', [BancoController::class, 'destroy'])->name('bancos
 
 
 
-//Validaciones 
+//Validaciones
 Route::post('/login', [SeguridadController::class, 'login'])->name('login');
 Route::get('/LoginValidacion', [SeguridadController::class,'LoginValidacion'])->name('login_validacion');
 Route::post('/logout', [SeguridadController::class, 'logout'])->name('logout');
@@ -359,6 +359,7 @@ Route::post('perfiles/obtener', [PerfilController::class, 'obtenerPerfiles'])->n
 Route::post('perfiles/registrar', [PerfilController::class, 'registrarPerfil'])->name('perfiles.registrar');
 Route::get('perfiles/editar/{id_perfil}', [PerfilController::class, 'editar'])->name('perfiles.editar');
 Route::put('/perfiles/actualizar/{id_perfil}', [PerfilController::class, 'actualizar'])->name('perfil.actualizar');
+
 
 
 

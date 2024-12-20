@@ -217,43 +217,41 @@ class CajaContableController extends Controller
     }
 
     public function obtenerDatosMedioPago(Request $request)
-    {
-        // Filtrar por medio de pago si se proporciona un `categoria_id`
-        $categoriaId = $request->input('categoria_id');
+{
+    $categoriaId = $request->input('categoria_id');
+    $tipoMovimiento = $request->input('tipo_movimiento'); // 'ingreso' o 'egreso'
 
-        $query = DB::table('movimientos_caja_contable')
-            ->select(
-                DB::raw('MONTH(fecha) as mes'),
-                'categoria_id',
-                DB::raw('SUM(monto) as total'),
-                DB::raw('COUNT(*) as cantidad')
-            )
-            ->groupBy('mes', 'categoria_id')
-            ->orderBy('mes');
+    $query = DB::table('movimientos_caja_contable')
+        ->select(
+            DB::raw('MONTH(fecha) as mes'),
+            'categoria_id',
+            'tipo_movimiento',
+            DB::raw('SUM(monto) as total'),
+            DB::raw('COUNT(*) as cantidad')
+        )
+        ->groupBy('mes', 'tipo_movimiento', 'categoria_id')
+        ->orderBy('mes');
 
-        if ($categoriaId) {
-            $query->where('categoria_id', $categoriaId);
-        }
-
-        $datos = $query->get();
-
-        // Formatear los datos para el gráfico
-        $result = [];
-        foreach ($datos as $dato) {
-            $result[$dato->categoria_id]['meses'][$dato->mes] = [
-                'total' => $dato->total,
-                'cantidad' => $dato->cantidad,
-            ];
-        }
-
-        // Obtener nombres de las categorías
-        $categorias = DB::table('categorias_movimientos')->pluck('nombre', 'id');
-
-        return response()->json([
-            'datos' => $result,
-            'categorias' => $categorias
-        ]);
+    if ($categoriaId) {
+        $query->where('categoria_id', $categoriaId);
     }
+
+    if ($tipoMovimiento) {
+        $query->where('tipo_movimiento', $tipoMovimiento);
+    }
+
+    $datos = $query->get();
+
+    $categorias = DB::table('categorias_movimientos')->pluck('nombre', 'id');
+
+    return response()->json([
+        'datos' => $datos,
+        'categorias' => $categorias
+    ]);
+}
+
+
+
     public function listarMovimientos(Request $request)
 {
     try {
