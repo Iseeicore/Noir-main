@@ -361,5 +361,12 @@ Route::get('perfiles/editar/{id_perfil}', [PerfilController::class, 'editar'])->
 Route::put('/perfiles/actualizar/{id_perfil}', [PerfilController::class, 'actualizar'])->name('perfil.actualizar');
 
 
+use App\Http\Controllers\BackupController;
 
+Route::prefix('backups')->group(function () {
+    Route::get('/', [BackupController::class, 'index'])->name('backups.index');
+    Route::post('/create', [BackupController::class, 'create'])->name('backups.create');
+    Route::get('/download/{file}', [BackupController::class, 'download'])->name('backups.download');
+    Route::delete('/delete/{file}', [BackupController::class, 'delete'])->name('backups.delete');
 
+});
