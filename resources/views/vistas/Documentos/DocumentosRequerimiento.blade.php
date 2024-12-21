@@ -110,8 +110,8 @@
                         switch (full.estado) {
                             case 0: // Estado Inactivo
                                 opciones += `
-                                    <span class='text-muted'>
-                                        Por el momento no hay opciones disponibles
+                                <span class='btnObservar text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Observar Requerimiento' onclick="visualizarRequerimiento(${full.id})">
+                                        <i class='fas fa-eye fs-5'></i>
                                     </span>`;
                                 break;
 
