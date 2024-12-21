@@ -103,6 +103,7 @@ return new class extends Migration
             ['id' => 31, 'modulo' => 'R/CajaChica', 'padre_id' => '8', 'vista' => 'Cajas/CajaChica/reportecajachica', 'icon_menu' => 'fas fa-check-circle', 'orden' => 27],
             ['id' => 32, 'modulo' => 'R/CajaContable', 'padre_id' => '8', 'vista' => 'Cajas/CajaContable/reportecajacontable', 'icon_menu' => 'fas fa-check-circle', 'orden' => 28],
             ['id' => 33, 'modulo' => 'Bancos', 'padre_id' => '5', 'vista' => 'banco/crear_bancos', 'icon_menu' => 'fas fa-check-circle', 'orden' => 29],
+            ['id' => 34, 'modulo' => 'Nucleo', 'padre_id' => '2', 'vista' => 'nucleo', 'icon_menu' => 'fas fa-check-circle', 'orden' => 30],
             
         ]);
 
@@ -135,6 +136,18 @@ return new class extends Migration
         DB::table('usuarios')->insert([
             [
                 'id_usuario' => 1,
+                'nomb_usuarios' => 'Ninguno',
+                'apellidos_usuarios' => '-',
+                'dni' => '000000000',
+                'usuario' => 'Ninguno',
+                'clave' => '$2y$12$gnQLAH5QVfpBLfvQFt.4qeMigLhZoWctXw5j21ln9hU6izn5L0AKW',
+                'id_perfil_usuario' => 1,
+                'id_Area_usuario' => 6,
+                'id_almacen_usuario' => 1,
+                'estado' => 1,
+            ],
+            [
+                'id_usuario' => 2,
                 'nomb_usuarios' => 'Cesar Augusto',
                 'apellidos_usuarios' => 'Virhuez Robles',
                 'dni' => '12444555',

@@ -27,6 +27,7 @@ use App\Http\Controllers\ReporteCajaContableController;
 use App\Http\Controllers\ReporteCajaChicaController;
 use App\Http\Controllers\CentroCostoController;
 use App\Http\Controllers\BancoController;
+use App\Http\Controllers\NucleoController;
 
 
 
@@ -271,7 +272,13 @@ Route::post('/caja-chica/validar-banco', [CajaChicaController::class, 'validarBa
 
 Route::get('/caja-chica/listar-bancos', [CajaChicaController::class, 'listarBancos'])->name('caja_chica.listar_bancos');
 
+//Nucleo
 
+Route::post('/nucleoView/listar', [NucleoController::class, 'listarNucleoView'])->name('nucleo.listar');
+Route::post('/nucleoView/guardar', [NucleoController::class, 'guardarNucleo'])->name('nucleo.guardar');
+Route::post('/nucleoView/actualizar/{id}', [NucleoController::class, 'actualizarNucleo'])->name('nucleo.actualizar');
+Route::delete('/nucleo/{id}', [NucleoController::class, 'eliminarNucleo'])->name('nucleo.eliminar');
+Route::post('/nucleo/cambiar-estado/{id}', [NucleoController::class, 'cambiarEstadoNucleo'])->name('nucleo.cambiarEstado');
 
 
 // CAJA CONTABLE
