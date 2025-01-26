@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Kufam:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+    font-family: "Krona One", sans-serif;
+    margin: 0%;
+    color: rgb(0, 0, 0);
+}
+.hidden {
+    display: none;
+}
+
+/* Estilo global */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: url("/assets/dist/img/CampoOpaco.jpg");
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+#NombreGrande {
+    width: 1000px;
+    height: 190px;
+    margin: auto;
+    background-image: url('/assets/dist/img/LogoPlaceholder.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#NombreGrande2 {
+    width: 180px;
+    height: 180px;
+    margin: auto;
+    background-image: url('/assets/dist/img/pollo.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Navbar superior */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-container {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navbar #logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00d18f;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+#navbar #info {
+    font-size: 1rem;
+    color: white;
+    background: #00d18f;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#navbar #info:hover {
+    background: #00b47e;
+}
+
+/* Contenido principal */
+#contenido {
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 60px;
+}
+
+#ElementosCentro p {
+    font-size: 1.2rem; /* Tamaño de letra incrementado */
+    line-height: 1.8; /* Aumenta el espacio entre líneas proporcionalmente */
+    color: #d1d1d1;
+    margin: 15px 0;
+}
+
+
+#Boton #btnIniciarSesion {
+    padding: 10px 30px;
+    font-size: 1rem;
+    background: linear-gradient(45deg, #00d18f, #00b47e);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#Boton #btnIniciarSesion:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #00b47e, #009d63);
+}
+
+/* Footer */
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#footer #Derechos {
+    font-size: 0.9rem;
+    color: #d1d1d1;
+    text-align: center;
+}
+
+/* Formulario de inicio de sesión */
+#formLogin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
+
+.blur-container {
+    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.877);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.815);
+    width: 100%;
+    max-width: 400px;
+}
+
+.blur-container h2 {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+.blur-container .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.blur-container .btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #00d18f, #00b47e);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.blur-container .btn-primary:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #00b47e, #009d63);
+}
+
+.blur-container .btn-secondary {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.blur-container .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.blur-container .btn-link {
+    color: #00d18f;
+    margin-top: 10px;
+    display: block;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.blur-container .btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el modal de reestablecimiento de contraseña */
+/* Deshabilitar el scroll del cuerpo cuando el modal está abierto */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Ajustes del modal para evitar desplazamiento */
+#modalReestablecerPassword .modal-dialog {
+    max-width: 400px;
+    margin: auto; /* Centrado absoluto */
+    top: 50%;
+    transform: translateY(-50%); /* Centra verticalmente */
+    position: relative;
+}
+
+#modalReestablecerPassword .modal-content {
+    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.877);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.815);
+    color: white;
+    overflow: hidden; /* Evita scroll interno */
+}
+
+/* Resto de los estilos permanecen igual */
+
+
+#modalReestablecerPassword .modal-header {
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+}
+
+#modalReestablecerPassword .modal-title {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+    font-family: "Krona One", sans-serif;
+}
+
+#modalReestablecerPassword .btn-close {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    opacity: 1;
+    transition: transform 0.2s ease;
+}
+
+#modalReestablecerPassword .btn-close:hover {
+    transform: scale(1.2);
+    color: #00d18f;
+}
+
+#modalReestablecerPassword .modal-body {
+    padding: 20px 10px;
+}
+
+#modalReestablecerPassword .form-label {
+    color: #d1d1d1;
+    font-size: 0.9rem;
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#modalReestablecerPassword .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    background-color: rgb(255, 255, 255);
+    color: rgba(0, 0, 0, 0.74);
+    transition: border-color 0.3s ease;
+}
+
+#modalReestablecerPassword .form-control:focus {
+    border-color: #00d18f;
+    outline: none;
+}
+
+#modalReestablecerPassword .is-invalid {
+    border-color: #ff4d4d;
+}
+
+#modalReestablecerPassword .invalid-feedback {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+#modalReestablecerPassword .is-valid {
+    border-color: #00d18f;
+}
+
+#modalReestablecerPassword .valid-feedback {
+    color: #00d18f;
+    font-size: 0.8rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+#modalReestablecerPassword .btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #00d18f, #00b47e);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#modalReestablecerPassword .btn-primary:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #00b47e, #009d63);
+}
+
+
+
+.modal-content {
+    backdrop-filter: blur(15px);
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-family: "Krona One", sans-serif;
+}
+
+.modal-body {
+    padding: 20px 15px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #00d18f, #00b47e);
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, #00b47e, #009d63);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+

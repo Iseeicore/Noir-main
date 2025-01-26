@@ -1,0 +1,108 @@
+[33mcommit 878f6b55b33859c0e253f3ec8eab4f1d5e431d67[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmejora_dashboard[m[33m)[m
+Author: Arisest505 <arisescrp@gmail.com>
+Date:   Fri Dec 20 08:03:20 2024 -0500
+
+    cambio completo dashboard sin comentario
+
+[33mcommit 18f71430d27edd84e3e98a525d6aacfbfddb6383[m[33m ([m[1;31morigin/mejora_dashboard[m[33m)[m
+Author: Arisest505 <arisescrp@gmail.com>
+Date:   Fri Dec 20 07:39:37 2024 -0500
+
+    cambio completo dashboard
+
+[33mcommit 9d15528c814122a4a9960f054d584472903a2a48[m
+Author: Arisest505 <arisescrp@gmail.com>
+Date:   Thu Dec 19 14:24:25 2024 -0500
+
+    Nada
+
+[33mcommit 145c811117096c4ad8d791aa99c43ff0f8703a4c[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 19 10:59:17 2024 -0500
+
+    REVERSION CON LAS IMAGENES
+
+[33mcommit 3aa677ef665ff72645b0fe55913265798c0d331f[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 19 10:51:07 2024 -0500
+
+    REVERSIONr
+
+[33mcommit c92f6c3a6ebdd48e36ef3576892aa1e6378b6fd1[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 19 10:16:39 2024 -0500
+
+    Carga de imagenes Sin ignorar
+
+[33mcommit 65a1eb3ab092869045fe4e726a41e2785415e741[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 19 10:11:49 2024 -0500
+
+    Carga de imagenes
+
+[33mcommit 16c7b4003e4f434fe5555b5ecdd4c84d5d7eeaee[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 12 13:59:39 2024 -0500
+
+    Agregacion de configuracion
+
+[33mcommit 58dea62df844bffd0a81fbc43bf9dbfb869e6611[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 12 13:46:57 2024 -0500
+
+    Convinacion de Dos proyectos
+
+[33mcommit b47ba79371b3113a189175e0a5a072ecb6e320d4[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Thu Dec 12 12:27:42 2024 -0500
+
+    Mejora implementacion CentroCosto
+
+[33mcommit 0aea8196f581dff5a77f07c5c8742c682741f537[m[33m ([m[1;33mtag: [m[1;33mMejorasV1[m[33m)[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Wed Dec 11 16:02:54 2024 -0500
+
+    Implementacion de Organizacion V1
+
+[33mcommit 22ea8d8235e3c04c8ed074a5e6219f0cfe531bd6[m[33m ([m[1;31morigin/resolucion_bug[m[33m)[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 17:14:18 2024 -0500
+
+    Mejoras diseño Dashboard
+
+[33mcommit 80aea15e4849e0f9600fd5d4034532015b4a1403[m
+Merge: b97b75a f57910a
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 14:48:17 2024 -0500
+
+    Version Completa y Correciones Listas
+
+[33mcommit f57910a750263e11792319393f40c662a13f09bd[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 14:22:07 2024 -0500
+
+    Configuraciones Completas
+
+[33mcommit d2f973b21b856fb3e0ca2dc757360f6872dc5581[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 13:39:15 2024 -0500
+
+    Version de Pruebas Correcion
+
+[33mcommit b97b75ab8ce83e569575c78989a594991faf899e[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 11:45:10 2024 -0500
+
+    Configuraccion correcion
+
+[33mcommit 8bc2ef8c36afea7372edad2146c72cd0a0ca7f85[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 11:39:16 2024 -0500
+
+    Complementacion de despliegue
+
+[33mcommit 89de5208e53053fc5c68fe7f671dd7d003eb9e41[m
+Author: Issei <cesarprohuayameynieto@gmail.com>
+Date:   Tue Dec 10 10:00:10 2024 -0500
+
+    App pruebas 10/12/24
