@@ -1,7 +1,5 @@
 @php
     $requerimento = App\Models\RequerimientoHead::find($id_de_paso);
-    $usuario = Auth::user(); // Si estás usando Auth para gestionar usuarios.
-    $nombreUsuario = $usuario ? "{$usuario->nomb_usuarios} {$usuario->apellidos_usuarios}" : 'Usuario desconocido';
 @endphp
 @if($requerimento)
 <div class="content-header">
@@ -52,8 +50,6 @@
                 <button type="reset" id="btnRegresar" class="btn btn-sm btn-primary deleteRow mx-1"onclick="fnc_RegresarListado()">
                     <i class="fas fa-undo-alt fs-5"></i> Regresar
                 </button>
-                <button type="button" class="btn btn-primary" onclick="imprimirDocumento()"><i class="fas fa-print"></i> Imprimir</button>
-
             </div>
         </div>
     </div>
@@ -70,7 +66,6 @@
 @endif
 
 <script>
-    const nombreUsuario = @json($nombreUsuario);
     $(document).ready(function () {
     const idRequerimiento = {{ $id_de_paso }}; // ID pasado desde el backend
 
@@ -129,10 +124,10 @@
             </div>
             <div class="col-12 col-lg-6 mb-2">
                 <label>Área quien recibe</label>
-                <input type="text" id="areaInput" name="areaInput" class="form-control form-control-sm" readonly 
-                    value="${encabezado.arearecibida ? encabezado.arearecibida.descripcion : 'No definida'}">
+                <select class="form-select" id="areaSelect" name="areaSelect" readonly>
+                    <option value="">${encabezado.arearecibida ? encabezado.arearecibida.descripcion : 'No definida'}</option>
+                </select>
             </div>
-
         </div>
     `);
 }
@@ -177,104 +172,5 @@
 
         CargarContenido('Documentos/DocumentosRequerimiento', 'content-wrapper');
     }
-
-    function imprimirDocumento() {
-    // Capturar el contenido del encabezado y la tabla
-    const encabezado = $('#encabezadoRequerimiento').html();
-    const tabla = $('#tablaProductos').clone(); // Clonar la tabla para evitar modificar la original
-
-    // Crear un nuevo documento para la impresión
-    const printWindow = window.open('', '_blank');
-    printWindow.document.open();
-    printWindow.document.write(`
-        <html>
-        <head>
-            <title>Imprimir Documento de Requerimiento - ${nombreUsuario}</title>
-            <style>
-                /* Ajustar estilos para la impresión */
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 20px;
-                }
-                .titulo-fieldset {
-                    font-size: 1.25rem;
-                    font-weight: bold;
-                    padding: 10px;
-                    border-bottom: 2px solid #007bff;
-                    margin-bottom: 20px;
-                    color: #007bff;
-                }
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-                th, td {
-                    padding: 10px;
-                    text-align: center;
-                }
-                th {
-                    background-color: #f8f9fa;
-                    font-weight: bold;
-                }
-                .table-bordered th, .table-bordered td {
-                    border: 1px solid #dee2e6;
-                }
-                .text-center {
-                    text-align: center;
-                }
-                .fw-bold {
-                    font-weight: bold;
-                }
-                .card {
-                    margin-bottom: 20px;
-                    border: 1px solid #dee2e6;
-                    border-radius: 8px;
-                }
-                .card-header {
-                    background-color: #f8f9fa;
-                    font-weight: bold;
-                    border-bottom: 1px solid #dee2e6;
-                    padding: 10px;
-                }
-                .card-body {
-                    padding: 20px;
-                }
-            </style>
-        </head>
-        <body>
-            <!-- Encabezado -->
-            <div class="mb-4 text-center">
-                <h2 class="fw-bold">Visualizar Documento Ingreso</h2>
-                <p class="text-muted">Información detallada del documento</p>
-            </div>
-
-            <!-- Encabezado del Documento -->
-            <div class="card">
-                <div class="card-header">Información del Documento</div>
-                <div class="card-body">
-                    ${encabezado}
-                </div>
-            </div>
-
-            <!-- Detalles del Documento -->
-            <div class="card">
-                <div class="card-header">Productos Ingresados</div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        ${tabla[0].outerHTML}
-                    </div>
-                </div>
-            </div>
-        </body>
-        </html>
-    `);
-    printWindow.document.close();
-
-    // Imprimir el documento
-    printWindow.onload = function () {
-        printWindow.print();
-        printWindow.close();
-    };
-}
 
 </script>

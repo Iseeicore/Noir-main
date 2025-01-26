@@ -6,86 +6,85 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\TipoCambio;
 use App\Models\ConfigRutas;
-use Illuminate\Support\Facades\Log;
+
 class TipoCambioController extends Controller
 {
     private $apiUrl = 'https://api.apis.net.pe/v2/sunat/tipo-cambio';
     private $apiToken = 'apis-token-11661.mg6ob2gQLMRkvYPVeZwr78glq7eCZDlr';
 
-    public function tipoCambioHoy()
-    {
-        $fechaHoy = now()->toDateString();
-    
-        // Verificar si ya existe un registro para el día actual
-        $tipoCambio = TipoCambio::where('fecha', $fechaHoy)->first();
-    
-        if ($tipoCambio) {
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'fecha' => $tipoCambio->fecha,
-                    'moneda_origen' => $tipoCambio->moneda_origen,
-                    'moneda_destino' => $tipoCambio->moneda_destino,
-                    'tipo_cambio_compra' => (float) $tipoCambio->tipo_cambio_compra,
-                    'tipo_cambio_venta' => (float) $tipoCambio->tipo_cambio_venta,
-                ]
-            ]);
-        }
-    
-        // Si no existe, obtener de la API
-        try {
-            $response = Http::withToken($this->apiToken)
-                ->withHeaders([
-                    'Referer' => 'https://apis.net.pe/tipo-de-cambio-sunat-api',
-                ])
-                ->get($this->apiUrl);
-    
-            if ($response->successful()) {
-                $data = $response->json();
-    
-                // Ajustar según la nueva estructura de la respuesta de la API
-                if (isset($data['precioCompra'], $data['precioVenta'], $data['fecha'])) {
-                    // Guardar en la base de datos
-                    $tipoCambio = TipoCambio::create([
-                        'fecha' => $data['fecha'],
-                        'moneda_origen' => $data['moneda'] ?? 'USD',
-                        'moneda_destino' => 'PEN',
-                        'tipo_cambio_compra' => $data['precioCompra'],
-                        'tipo_cambio_venta' => $data['precioVenta'],
-                        'estado' => 1
-                    ]);
-    
-                    return response()->json([
-                        'success' => true,
-                        'data' => [
-                            'fecha' => $tipoCambio->fecha,
-                            'moneda_origen' => $tipoCambio->moneda_origen,
-                            'moneda_destino' => $tipoCambio->moneda_destino,
-                            'tipo_cambio_compra' => (float) $tipoCambio->tipo_cambio_compra,
-                            'tipo_cambio_venta' => (float) $tipoCambio->tipo_cambio_venta,
-                        ]
-                    ]);
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'La API no devolvió los datos esperados.',
-                    ], 500);
-                }
-            }
-    
-            return response()->json([
-                'success' => false,
-                'message' => 'No se pudo conectar con la API de tipo de cambio.'
-            ], 500);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al conectar con la API.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+public function tipoCambioHoy()
+{
+    $fechaHoy = now()->toDateString();
+
+    // Verificar si ya existe un registro para el día actual
+    $tipoCambio = TipoCambio::where('fecha', $fechaHoy)->first();
+
+    if ($tipoCambio) {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'fecha' => $tipoCambio->fecha,
+                'moneda_origen' => $tipoCambio->moneda_origen,
+                'moneda_destino' => $tipoCambio->moneda_destino,
+                'tipo_cambio_compra' => (float) $tipoCambio->tipo_cambio_compra,
+                'tipo_cambio_venta' => (float) $tipoCambio->tipo_cambio_venta,
+            ]
+        ]);
     }
-    
+
+    // Si no existe, obtener de la API
+    try {
+        $response = Http::withToken($this->apiToken)
+            ->withHeaders([
+                'Referer' => 'https://apis.net.pe/tipo-de-cambio-sunat-api',
+            ])
+            ->get('https://api.apis.net.pe/v2/sunat/tipo-cambio');
+
+        if ($response->successful()) {
+            $data = $response->json();
+
+            // Ajustar según la estructura de la respuesta de la API
+            if (isset($data['compra'], $data['venta'], $data['fecha'])) {
+                // Guardar en la base de datos
+                $tipoCambio = TipoCambio::create([
+                    'fecha' => $fechaHoy,
+                    'moneda_origen' => 'USD',
+                    'moneda_destino' => 'PEN',
+                    'tipo_cambio_compra' => $data['compra'],
+                    'tipo_cambio_venta' => $data['venta'],
+                    'estado' => 1
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'data' => [
+                        'fecha' => $tipoCambio->fecha,
+                        'moneda_origen' => $tipoCambio->moneda_origen,
+                        'moneda_destino' => $tipoCambio->moneda_destino,
+                        'tipo_cambio_compra' => (float) $tipoCambio->tipo_cambio_compra,
+                        'tipo_cambio_venta' => (float) $tipoCambio->tipo_cambio_venta,
+                    ]
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'La API no devolvió los datos esperados.',
+                ], 500);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'No se pudo conectar con la API de tipo de cambio.'
+        ], 500);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al conectar con la API.',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 public function tipoCambioPorFecha(Request $request)
 {
     $fecha = $request->input('date');

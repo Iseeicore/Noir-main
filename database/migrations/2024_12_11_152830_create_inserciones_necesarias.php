@@ -103,11 +103,7 @@ return new class extends Migration
             ['id' => 31, 'modulo' => 'R/CajaChica', 'padre_id' => '8', 'vista' => 'Cajas/CajaChica/reportecajachica', 'icon_menu' => 'fas fa-check-circle', 'orden' => 27],
             ['id' => 32, 'modulo' => 'R/CajaContable', 'padre_id' => '8', 'vista' => 'Cajas/CajaContable/reportecajacontable', 'icon_menu' => 'fas fa-check-circle', 'orden' => 28],
             ['id' => 33, 'modulo' => 'Bancos', 'padre_id' => '5', 'vista' => 'banco/crear_bancos', 'icon_menu' => 'fas fa-check-circle', 'orden' => 29],
-            ['id' => 34, 'modulo' => 'Nucleo', 'padre_id' => '2', 'vista' => 'nucleo', 'icon_menu' => 'fas fa-check-circle', 'orden' => 30],
-            ['id' => 35, 'modulo' => 'Backup', 'padre_id' => '0', 'vista' => '', 'icon_menu' => 'fas fa-database', 'orden' => 31],
-            ['id' => 36, 'modulo' => 'Copia de seguridad', 'padre_id' => '35', 'vista' => 'backups/backup', 'icon_menu' => 'fas fa-check-circle', 'orden' => 32],
             
-
         ]);
 
         DB::table('perfiles')->insert([
@@ -139,18 +135,6 @@ return new class extends Migration
         DB::table('usuarios')->insert([
             [
                 'id_usuario' => 1,
-                'nomb_usuarios' => 'Ninguno',
-                'apellidos_usuarios' => '-',
-                'dni' => '12345678',
-                'usuario' => 'Ninguno',
-                'clave' => '$2y$12$gnQLAH5QVfpBLfvQFt.4qeMigLhZoWctXw5j21ln9hU6izn5L0AKW',
-                'id_perfil_usuario' => 1,
-                'id_Area_usuario' => 6,
-                'id_almacen_usuario' => 1,
-                'estado' => 1,
-            ],
-            [
-                'id_usuario' => 2,
                 'nomb_usuarios' => 'Cesar Augusto',
                 'apellidos_usuarios' => 'Virhuez Robles',
                 'dni' => '12444555',
@@ -167,20 +151,6 @@ return new class extends Migration
             ['id' => 1,'api_url' => 'https://dniruc.apisperu.com/api/v1/ruc','api_token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFyaXNlc2NycEBnbWFpbC5jb20ifQ.xE8AVDAGBNR7j1DSr56rUXbjJzhy7oXo59qdjAL_wLY','UsuarioModificar' => 1],
             ['id' => 2,'api_url' => 'https://api.apis.net.pe/v2/sunat/tipo-cambio','api_token' => 'apis-token-11661.mg6ob2gQLMRkvYPVeZwr78glq7eCZDlr','UsuarioModificar' => 1],
         ]);
-
-
-        DB::table('proveedores')->insert([
-            'id' => 1,
-            'cod_proveedor' => 'PROV000',
-            'ruc' => '00000000000',
-            'razon_social' => 'NINGUNO',
-            'direccion' => 'N/A',
-            'contacto' => 'Nadie',
-            'numero' => '000000000',
-            'email' => 'na@gmail.com',
-            'estado' => 1,
-        ]);
-
 
         DB::table('codigoacceso')->insert([
             ['id' => 1, 'CodigoAcceso' => '12345678', 'UsuarioModificar' => 1],

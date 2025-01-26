@@ -139,13 +139,13 @@
                             opciones += `
                                 <span class='btnObservar text-primary px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Observar Requerimiento' onclick="visualizarDocumentoSalida(${full.id})">
                                     <i class='fas fa-eye fs-5'></i>
+                                </span>
+                                <span class='btnEditar text-warning px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Editar Requerimiento' onclick="editarDocumentoSalida(${full.id})">
+                                    <i class='fas fa-pencil-alt fs-5'></i>
+                                </span>
+                                <span class='btnEliminar text-danger px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar Requerimiento' onclick="eliminarDocumentoSalida(${full.id})">
+                                    <i class='fas fa-trash fs-5'></i>
                                 </span>`;
-                                // <span class='btnEditar text-warning px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Editar Requerimiento' onclick="editarDocumentoSalida(${full.id})">
-                                //     <i class='fas fa-pencil-alt fs-5'></i>
-                                // </span>
-                                // <span class='btnEliminar text-danger px-1' style='cursor:pointer;' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar Requerimiento' onclick="eliminarDocumentoSalida(${full.id})">
-                                //     <i class='fas fa-trash fs-5'></i>
-                                // </span>
                         }
 
                         opciones += `</center>`;
