@@ -209,7 +209,7 @@ function inicializarDataTable() {
         targets: 8, // Imagen
         createdCell: function(td, cellData, rowData, row, col) {
             if (rowData['imagen'] && rowData['imagen'] !== 'NoImagen') {
-                $(td).html(`<img src="{{ asset('storage/assets/imagenes/productos') }}/${rowData['imagen']}" class="zoom rounded-pill border text-center border-secondary" style="object-fit: cover; width: 40px; height: 40px; transition: transform .5s; overflow: hidden; z-index:100000" alt="">`);
+                $(td).html('<img src="{{ asset("storage/assets/imagenes/productos") }}/' + rowData['imagen'] + '" class="zoom rounded-pill border text-center border-secondary" style="object-fit: cover; width: 40px; height: 40px; transition: transform .5s; overflow: hidden; z-index:100000" alt="">');
             } else {
                 $(td).html('<img src="/assets/imagenes/no_image.jpg" class="rounded-pill border text-center border-secondary" style="object-fit: cover; width: 40px; height: 40px;" alt="">');
             }
